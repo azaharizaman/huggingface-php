@@ -73,7 +73,7 @@ $response->toArray(); // ['type' => .., 'generated_text' => ...]
 
 ## Acknowledge
 
-This library was inspired at the source level by the PHP OpenAI client. Portions of the code have been directly copied from this outstanding library.
+This library was inspired at the source level by the PHP OpenAI client and Kambo-1st/Huggingface-php. Portions of the code have been directly copied from these outstanding libraries.
 
 ---
 
