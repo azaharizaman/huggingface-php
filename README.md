@@ -1,9 +1,9 @@
 <p align="center">
     <p align="center">
-        <a href="https://github.com/kambo-1st/huggingface-php/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/kambo-1st/huggingface-php/tests.yml?branch=main&label=tests&style=round-square"></a>
-        <a href="https://packagist.org/packages/kambo/huggingface-php"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/kambo/huggingface-php"></a>
-        <a href="https://packagist.org/packages/kambo/huggingface-php"><img alt="Latest Version" src="https://img.shields.io/packagist/v/kambo/huggingface-php"></a>
-        <a href="https://packagist.org/packages/kambo/huggingface-php"><img alt="License" src="https://img.shields.io/github/license/kambo/huggingface-php"></a>
+        <a href="https://github.com/azaharizaman/huggingface-php/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/azaharizaman/huggingface-php/tests.yml?branch=main&label=tests&style=round-square"></a>
+        <a href="https://packagist.org/packages/azaharizaman/huggingface-php"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/azaharizaman/huggingface-php"></a>
+        <a href="https://packagist.org/packages/azaharizaman/huggingface-php"><img alt="Latest Version" src="https://img.shields.io/packagist/v/azaharizaman/huggingface-php"></a>
+        <a href="https://packagist.org/packages/azaharizaman/huggingface-php"><img alt="License" src="https://img.shields.io/github/license/azaharizaman/huggingface-php"></a>
     </p>
 </p>
 
@@ -26,7 +26,7 @@
 First, install OpenAI via the [Composer](https://getcomposer.org/) package manager:
 
 ```bash
-composer require kambo/huggingface-php
+composer require azaharizaman/huggingface-php
 ```
 
 Ensure that the `php-http/discovery` composer plugin is allowed to run or install a client manually if your project does not already have a PSR-18 client integrated.
