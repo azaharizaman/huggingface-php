@@ -8,4 +8,5 @@ enum Type: string
     case FILL_MASK = 'fill-mask';
     case SUMMARIZATION = 'summarization';
     case SENTIMENT_ANALYSIS = 'sentiment-analysis';
+    case EMOTION_CLASSIFICATION = 'emotion-classification';
 }
