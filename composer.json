@@ -20,7 +20,7 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.5.1",
         "guzzlehttp/psr7": "^2.5.0",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11.0",
         "slevomat/coding-standard": "^8.8"
     },
     "autoload": {
