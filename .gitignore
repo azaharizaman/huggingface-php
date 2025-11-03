@@ -5,5 +5,5 @@
 *.swp
 *.swo
 playground/*
-coverage
+/coverage/
 coverage.txt
