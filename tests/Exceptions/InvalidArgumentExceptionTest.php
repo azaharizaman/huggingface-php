@@ -12,7 +12,7 @@ final class InvalidArgumentExceptionTest extends TestCase
     public function testExceptionCanBeCreated(): void
     {
         $exception = new InvalidArgumentException('Invalid argument provided');
-        
+
         $this->assertSame('Invalid argument provided', $exception->getMessage());
     }
 }

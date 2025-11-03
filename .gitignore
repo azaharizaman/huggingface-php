@@ -1,9 +1,93 @@
-/.phpunit.cache
-/composer.lock
-/phpunit.xml
+# Dependencies
 /vendor/
+/node_modules/
+
+# Composer
+composer.phar
+composer.lock
+
+# PHPUnit
+/.phpunit.cache
+/phpunit.xml
+coverage.txt
+coverage/
+coverage.xml
+coverage.clover
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE and Editor files
+/.idea/
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Vim/Emacs
 *.swp
 *.swo
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Cache and temporary files
+/var/cache/
+/var/log/
+/var/tmp/
+*.tmp
+*.temp
+*.cache
+
+# Build artifacts
+/build/
+/dist/
+
+# Logs
+*.log
+logs/
+
+# Playground and scratch files
 playground/*
-/coverage/
-coverage.txt
+scratch/
+tmp/
+
+# Documentation build
+/docs/build/
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# PHPStan
+/phpstan.phar
+/.phpstan/
+
+# Infection
+/infection.log
+/.infection/
+
+# Psalm
+/.psalm/
+psalm.xml

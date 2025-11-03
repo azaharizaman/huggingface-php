@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AzahariZaman\Huggingface\Responses\Inference;
 
+use AzahariZaman\Huggingface\Contracts\ResponseContract;
 use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
 
-class CreateResponseFilledMask
+final class CreateResponseFilledMask implements ResponseContract
 {
     use ArrayAccessible;
 
@@ -13,8 +16,7 @@ class CreateResponseFilledMask
         private readonly int $token,
         private readonly string $tokenStr,
         private readonly string $sequence,
-    )
-    {
+    ) {
         // ..
     }
 

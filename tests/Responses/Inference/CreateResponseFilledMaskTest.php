@@ -17,9 +17,9 @@ final class CreateResponseFilledMaskTest extends TestCase
             'token_str' => 'test',
             'sequence' => 'This is a test sequence',
         ];
-        
+
         $response = CreateResponseFilledMask::from($attributes);
-        
+
         $this->assertInstanceOf(CreateResponseFilledMask::class, $response);
     }
 
@@ -31,10 +31,10 @@ final class CreateResponseFilledMaskTest extends TestCase
             'token_str' => 'test',
             'sequence' => 'This is a test',
         ];
-        
+
         $response = CreateResponseFilledMask::from($attributes);
         $array = $response->toArray();
-        
+
         $this->assertSame([
             'score' => 0.95,
             'token' => 123,
@@ -53,7 +53,7 @@ final class CreateResponseFilledMaskTest extends TestCase
         ];
         $response = CreateResponseFilledMask::from($attributes);
         $array = $response->toArray();
-        
+
         $this->assertArrayHasKey('score', $array);
         $this->assertArrayHasKey('token', $array);
         $this->assertArrayHasKey('token_str', $array);

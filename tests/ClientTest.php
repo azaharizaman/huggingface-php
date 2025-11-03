@@ -15,9 +15,9 @@ final class ClientTest extends TestCase
     {
         $transporter = $this->createMock(TransporterContract::class);
         $client = new Client($transporter);
-        
+
         $inference = $client->inference();
-        
+
         $this->assertInstanceOf(Inference::class, $inference);
     }
 }

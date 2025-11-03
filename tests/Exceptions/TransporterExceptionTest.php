@@ -14,9 +14,9 @@ final class TransporterExceptionTest extends TestCase
     {
         $clientException = new class ('Client error') extends \Exception implements ClientExceptionInterface {
         };
-        
+
         $exception = new TransporterException($clientException);
-        
+
         $this->assertSame('Client error', $exception->getMessage());
         $this->assertSame($clientException, $exception->getPrevious());
     }

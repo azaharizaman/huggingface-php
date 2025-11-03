@@ -129,9 +129,9 @@ final class Payload
 
         $body = null;
 
-        $uri = $baseUri->toString().$this->uri->toString();
+        $uri = $baseUri->toString() . $this->uri->toString();
         if (! empty($queryParams->toArray())) {
-            $uri .= '?'.http_build_query($queryParams->toArray());
+            $uri .= '?' . http_build_query($queryParams->toArray());
         }
 
         $headers = $headers->withContentType($this->contentType);
@@ -153,7 +153,7 @@ final class Payload
 
                 $body = $streamBuilder->build();
 
-                $headers = $headers->withContentType($this->contentType, '; boundary='.$streamBuilder->getBoundary());
+                $headers = $headers->withContentType($this->contentType, '; boundary=' . $streamBuilder->getBoundary());
             } else {
                 $body = $psr17Factory->createStream(json_encode($this->parameters, JSON_THROW_ON_ERROR));
             }

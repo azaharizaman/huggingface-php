@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AzahariZaman\Huggingface;
 
-class Huggingface
+final class Huggingface
 {
     /**
      * Creates a new Hugging Face Client with the given API token.

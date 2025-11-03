@@ -12,7 +12,7 @@ final class ResourceUriTest extends TestCase
     public function testCreateReturnsResourceUri(): void
     {
         $uri = ResourceUri::create('models');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('models', $uri->toString());
     }
@@ -20,7 +20,7 @@ final class ResourceUriTest extends TestCase
     public function testUploadReturnsResourceUri(): void
     {
         $uri = ResourceUri::upload('files');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('files', $uri->toString());
     }
@@ -28,7 +28,7 @@ final class ResourceUriTest extends TestCase
     public function testListReturnsResourceUri(): void
     {
         $uri = ResourceUri::list('datasets');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('datasets', $uri->toString());
     }
@@ -36,7 +36,7 @@ final class ResourceUriTest extends TestCase
     public function testRetrieveReturnsResourceUri(): void
     {
         $uri = ResourceUri::retrieve('models', 'model-id', '/files');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('models/model-id/files', $uri->toString());
     }
@@ -44,14 +44,14 @@ final class ResourceUriTest extends TestCase
     public function testRetrieveWithEmptySuffix(): void
     {
         $uri = ResourceUri::retrieve('models', 'model-id', '');
-        
+
         $this->assertSame('models/model-id', $uri->toString());
     }
 
     public function testRetrieveContentReturnsResourceUri(): void
     {
         $uri = ResourceUri::retrieveContent('files', 'file-id');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('files/file-id/content', $uri->toString());
     }
@@ -59,7 +59,7 @@ final class ResourceUriTest extends TestCase
     public function testCancelReturnsResourceUri(): void
     {
         $uri = ResourceUri::cancel('jobs', 'job-id');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('jobs/job-id/cancel', $uri->toString());
     }
@@ -67,7 +67,7 @@ final class ResourceUriTest extends TestCase
     public function testDeleteReturnsResourceUri(): void
     {
         $uri = ResourceUri::delete('models', 'model-id');
-        
+
         $this->assertInstanceOf(ResourceUri::class, $uri);
         $this->assertSame('models/model-id', $uri->toString());
     }

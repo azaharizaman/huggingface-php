@@ -1,4 +1,8 @@
-<?php namespace AzahariZaman\Huggingface\Responses\Inference;
+<?php
+
+declare(strict_types=1);
+
+namespace AzahariZaman\Huggingface\Responses\Inference;
 
 use AzahariZaman\Huggingface\Contracts\ResponseContract;
 use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
@@ -6,9 +10,10 @@ use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
 final class CreateResponseEmotionClassification implements ResponseContract
 {
     use ArrayAccessible;
+
     public function __construct(
-        private readonly array $results)
-    {
+        private readonly array $results
+    ) {
         // ..
     }
 

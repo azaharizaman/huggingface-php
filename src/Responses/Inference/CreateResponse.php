@@ -13,16 +13,15 @@ use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
  */
 final class CreateResponse implements ResponseContract
 {
-
     use ArrayAccessible;
 
     private function __construct(
         public readonly Type $type,
-        public ?CreateResponseGeneratedText $generatedText=null,
-        public ?CreateResponseSummarization $summarization=null,
-        public array $sentimentAnalysis=[],
-        public array $filledMasks=[],
-        public array $emotionClassification=[],
+        public ?CreateResponseGeneratedText $generatedText = null,
+        public ?CreateResponseSummarization $summarization = null,
+        public array $sentimentAnalysis = [],
+        public array $filledMasks = [],
+        public array $emotionClassification = [],
     ) {
     }
 
@@ -86,7 +85,7 @@ final class CreateResponse implements ResponseContract
             case Type::EMOTION_CLASSIFICATION->value:
                 $array['emotion_classification'] = array_map(fn (CreateResponseEmotionClassification $emotionClassification): array => $emotionClassification->toArray(), $this->emotionClassification);
                 break;
-            }
+        }
 
         return $array;
     }

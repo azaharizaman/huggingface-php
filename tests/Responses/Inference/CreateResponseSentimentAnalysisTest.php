@@ -14,9 +14,9 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $attributes = [
             ['label' => 'POSITIVE', 'score' => '0.95'],
         ];
-        
+
         $response = CreateResponseSentimentAnalysis::from($attributes);
-        
+
         $this->assertInstanceOf(CreateResponseSentimentAnalysis::class, $response);
     }
 
@@ -25,10 +25,10 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $attributes = [
             ['label' => 'POSITIVE', 'score' => '0.95'],
         ];
-        
+
         $response = CreateResponseSentimentAnalysis::from($attributes);
         $array = $response->toArray();
-        
+
         $this->assertSame([
             'label' => 'POSITIVE',
             'score' => '0.95',
@@ -41,7 +41,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
             ['label' => 'NEGATIVE', 'score' => '0.85'],
         ];
         $response = CreateResponseSentimentAnalysis::from($attributes);
-        
+
         $this->assertTrue(isset($response['label']));
         $this->assertSame('NEGATIVE', $response['label']);
         $this->assertSame('0.85', $response['score']);

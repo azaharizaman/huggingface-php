@@ -16,9 +16,9 @@ final class ErrorExceptionTest extends TestCase
             'type' => 'test_error',
             'code' => 'TEST_001',
         ];
-        
+
         $exception = new ErrorException($contents);
-        
+
         $this->assertSame('Test error message', $exception->getMessage());
         $this->assertSame('Test error message', $exception->getErrorMessage());
         $this->assertSame('test_error', $exception->getErrorType());
@@ -28,7 +28,7 @@ final class ErrorExceptionTest extends TestCase
     public function testConstructWithStringContents(): void
     {
         $exception = new ErrorException('Simple error message');
-        
+
         $this->assertSame('Simple error message', $exception->getMessage());
         $this->assertSame('Simple error message', $exception->getErrorMessage());
     }
@@ -36,7 +36,7 @@ final class ErrorExceptionTest extends TestCase
     public function testConstructWithStringOnlyAffectsMessage(): void
     {
         $exception = new ErrorException('Simple error');
-        
+
         $this->assertSame('Simple error', $exception->getMessage());
         $this->assertSame('Simple error', $exception->getErrorMessage());
         // Note: getErrorType() and getErrorCode() should not be called when constructed with string
@@ -49,9 +49,9 @@ final class ErrorExceptionTest extends TestCase
             'type' => null,
             'code' => null,
         ];
-        
+
         $exception = new ErrorException($contents);
-        
+
         $this->assertSame('Error without type', $exception->getMessage());
         $this->assertNull($exception->getErrorType());
         $this->assertNull($exception->getErrorCode());

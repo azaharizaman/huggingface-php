@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AzahariZaman\Huggingface;
 
 use Closure;
@@ -164,4 +166,3 @@ final class Factory
         };
     }
 }
-

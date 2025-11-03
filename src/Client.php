@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AzahariZaman\Huggingface;
 
 use AzahariZaman\Huggingface\Contracts\TransporterContract;

@@ -14,7 +14,7 @@ final class HeadersTest extends TestCase
     public function testCreateReturnsEmptyHeaders(): void
     {
         $headers = Headers::create();
-        
+
         $this->assertInstanceOf(Headers::class, $headers);
         $this->assertSame([], $headers->toArray());
     }
@@ -23,7 +23,7 @@ final class HeadersTest extends TestCase
     {
         $apiKey = ApiKey::from('test-key');
         $headers = Headers::withAuthorization($apiKey);
-        
+
         $this->assertInstanceOf(Headers::class, $headers);
         $this->assertSame([
             'Authorization' => 'Bearer test-key',
@@ -33,7 +33,7 @@ final class HeadersTest extends TestCase
     public function testWithContentTypeAddsContentTypeHeader(): void
     {
         $headers = Headers::create()->withContentType(ContentType::JSON);
-        
+
         $this->assertSame([
             'Content-Type' => 'application/json',
         ], $headers->toArray());
@@ -42,7 +42,7 @@ final class HeadersTest extends TestCase
     public function testWithContentTypeAndSuffix(): void
     {
         $headers = Headers::create()->withContentType(ContentType::MULTIPART, '; boundary=test-boundary');
-        
+
         $this->assertSame([
             'Content-Type' => 'multipart/form-data; boundary=test-boundary',
         ], $headers->toArray());
@@ -51,7 +51,7 @@ final class HeadersTest extends TestCase
     public function testWithCustomHeaderAddsHeader(): void
     {
         $headers = Headers::create()->withCustomHeader('X-Custom-Header', 'custom-value');
-        
+
         $this->assertSame([
             'X-Custom-Header' => 'custom-value',
         ], $headers->toArray());
@@ -61,7 +61,7 @@ final class HeadersTest extends TestCase
     {
         $headers1 = Headers::create();
         $headers2 = $headers1->withCustomHeader('X-Test', 'value');
-        
+
         $this->assertNotSame($headers1, $headers2);
         $this->assertSame([], $headers1->toArray());
         $this->assertSame(['X-Test' => 'value'], $headers2->toArray());
@@ -72,7 +72,7 @@ final class HeadersTest extends TestCase
         $headers = Headers::withAuthorization(ApiKey::from('key'))
             ->withContentType(ContentType::JSON)
             ->withCustomHeader('X-Custom', 'value');
-        
+
         $this->assertSame([
             'Authorization' => 'Bearer key',
             'Content-Type' => 'application/json',

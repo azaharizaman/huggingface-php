@@ -42,7 +42,7 @@ final class ArrayAccessibleTest extends TestCase
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Cannot set response attributes.');
-        
+
         $this->response['key1'] = 'new value';
     }
 
@@ -50,7 +50,7 @@ final class ArrayAccessibleTest extends TestCase
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Cannot unset response attributes.');
-        
+
         unset($this->response['key1']);
     }
 }

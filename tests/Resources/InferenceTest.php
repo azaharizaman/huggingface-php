@@ -21,15 +21,15 @@ final class InferenceTest extends TestCase
             ->willReturn([
                 ['generated_text' => 'Test generated text'],
             ]);
-        
+
         $inference = new Inference($transporter);
-        
+
         $response = $inference->create([
             'model' => 'gpt2',
             'type' => Type::TEXT_GENERATION,
             'inputs' => 'Test input',
         ]);
-        
+
         $this->assertInstanceOf(CreateResponse::class, $response);
     }
 }

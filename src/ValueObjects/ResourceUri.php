@@ -6,7 +6,6 @@ namespace AzahariZaman\Huggingface\ValueObjects;
 
 use AzahariZaman\Huggingface\Contracts\StringableContract;
 
-
 /**
  * @internal
  */

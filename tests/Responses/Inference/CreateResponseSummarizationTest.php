@@ -14,9 +14,9 @@ final class CreateResponseSummarizationTest extends TestCase
         $attributes = [
             ['summary_text' => 'Summary content'],
         ];
-        
+
         $response = CreateResponseSummarization::from($attributes);
-        
+
         $this->assertInstanceOf(CreateResponseSummarization::class, $response);
     }
 
@@ -25,10 +25,10 @@ final class CreateResponseSummarizationTest extends TestCase
         $attributes = [
             ['summary_text' => 'Test summary'],
         ];
-        
+
         $response = CreateResponseSummarization::from($attributes);
         $array = $response->toArray();
-        
+
         $this->assertSame(['summary_text' => 'Test summary'], $array);
     }
 
@@ -38,7 +38,7 @@ final class CreateResponseSummarizationTest extends TestCase
             ['summary_text' => 'Test summary'],
         ];
         $response = CreateResponseSummarization::from($attributes);
-        
+
         $this->assertTrue(isset($response['summary_text']));
         $this->assertSame('Test summary', $response['summary_text']);
     }

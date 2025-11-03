@@ -8,6 +8,7 @@ use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
 final class CreateResponseGeneratedText implements ResponseContract
 {
     use ArrayAccessible;
+
     public function __construct(private readonly string $text)
     {
         // ..
