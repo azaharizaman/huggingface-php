@@ -16,7 +16,13 @@
     8080
   ],
   "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-extra/features/composer:1": {
+      "version": "latest"
+    }
   },
   "customizations": {
     "vscode": {
@@ -28,7 +34,8 @@
             "glenn2223.live-php-preview",   // (Optional) Live preview of PHP files
             "felixfbecker.php-docblocker",  // Generates PHPDoc comments easily
             "esbenp.prettier-vscode",       // Code formatter for consistent style
-            "eamodio.gitlens"               // Enhanced Git integration
+            "eamodio.gitlens",               // Enhanced Git integration
+            "Github.copilot"
         ]
     }
 }
