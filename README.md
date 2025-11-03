@@ -71,6 +71,61 @@ $response = $client->inference()->create([
 $response->toArray(); // ['type' => .., 'generated_text' => ...]
 ```
 
+## Testing
+
+Huggingface PHP uses PHPUnit for testing. The test suite provides comprehensive coverage of all classes, methods, and lines.
+
+### Running Tests
+
+To run the test suite:
+
+```bash
+composer test
+```
+
+### Running Tests with Coverage
+
+To generate a code coverage report:
+
+```bash
+composer test-coverage
+```
+
+This will display coverage statistics in the terminal. The current test suite achieves:
+- **Lines: 99.20%** (247/249)
+- **Methods: 98.75%** (79/80)
+- **Classes: 95.24%** (20/21)
+
+### Running Specific Tests
+
+To run a specific test file:
+
+```bash
+vendor/bin/phpunit tests/HuggingfaceTest.php
+```
+
+To run tests for a specific class or method:
+
+```bash
+vendor/bin/phpunit --filter=testMethodName
+```
+
+### Test Structure
+
+The test suite is organized to mirror the source code structure:
+
+```
+tests/
+├── Core: Huggingface, Factory, Client
+├── Resources: Inference
+├── Transporters: HttpTransporter  
+├── ValueObjects: ApiKey, ResourceUri, BaseUri, Headers, QueryParams, Payload
+├── Enums: Type, Method, ContentType
+├── Responses: CreateResponse + specialized response types
+├── Exceptions: ErrorException, TransporterException, UnserializableResponse
+└── Traits: ArrayAccessible
+```
+
 ## Acknowledge
 
 This library was inspired at the source level by the PHP OpenAI client and Kambo-1st/Huggingface-php. Portions of the code have been directly copied from these outstanding libraries.
