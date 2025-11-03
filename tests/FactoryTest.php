@@ -170,4 +170,38 @@ final class FactoryTest extends TestCase
         
         $this->assertInstanceOf(Client::class, $client);
     }
+
+    public function testMakeStreamHandlerWithPsr18Client(): void
+    {
+        // Create an actual Psr18Client instance since it's final and cannot be mocked
+        $psr18Client = new \Symfony\Component\HttpClient\Psr18Client();
+        $factory = new Factory();
+        
+        // Access the makeStreamHandler method via reflection to test the Psr18Client branch
+        $reflection = new \ReflectionClass($factory);
+        $method = $reflection->getMethod('makeStreamHandler');
+        $method->setAccessible(true);
+        
+        $streamHandler = $method->invoke($factory, $psr18Client);
+        $this->assertInstanceOf(\Closure::class, $streamHandler);
+    }
+
+    public function testMakeStreamHandlerThrowsExceptionForUnsupportedClient(): void
+    {
+        $unsupportedClient = $this->createMock(ClientInterface::class);
+        $factory = new Factory();
+        
+        // Access the makeStreamHandler method via reflection to test the exception case
+        $reflection = new \ReflectionClass($factory);
+        $method = $reflection->getMethod('makeStreamHandler');
+        $method->setAccessible(true);
+        
+        $streamHandler = $method->invoke($factory, $unsupportedClient);
+        
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('To use stream requests you must provide an stream handler closure via the factory.');
+        
+        $request = $this->createMock(\Psr\Http\Message\RequestInterface::class);
+        $streamHandler($request);
+    }
 }

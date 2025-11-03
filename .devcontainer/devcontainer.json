@@ -1,0 +1,48 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/php
+{
+  "name": "PHP",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Configure tool-specific properties.
+  // "customizations": {},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    8080
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-extra/features/composer:1": {
+      "version": "latest"
+    }
+  },
+  "customizations": {
+    "vscode": {
+        "extensions": [
+            "bmewburn.vscode-intelephense", // PHP IntelliSense for code completion and navigation
+            "xdebug.php-debug",           // Essential for debugging with Xdebug
+            "ikappas.composer",             // Manages Composer dependencies
+            "persoderlund.php-cs-fixer",    // Automates code formatting on save
+            "glenn2223.live-php-preview",   // (Optional) Live preview of PHP files
+            "felixfbecker.php-docblocker",  // Generates PHPDoc comments easily
+            "esbenp.prettier-vscode",       // Code formatter for consistent style
+            "eamodio.gitlens",               // Enhanced Git integration
+            "Github.copilot"
+        ]
+    }
+}
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
