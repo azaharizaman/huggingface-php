@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.2 || ^8.3 || ^8.4",
+        "php": "^8.2",
         "php-http/discovery": "^1.15.3",
         "psr/http-client": "^1.0.2",
         "psr/http-client-implementation": "^1.0.1",
