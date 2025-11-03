@@ -22,7 +22,8 @@
         "guzzlehttp/guzzle": "^7.5.1",
         "guzzlehttp/psr7": "^2.5.0",
         "phpunit/phpunit": "^11.0",
-        "slevomat/coding-standard": "^8.8"
+        "slevomat/coding-standard": "^8.8",
+        "symfony/http-client": "^7.3"
     },
     "autoload": {
         "psr-4": {
