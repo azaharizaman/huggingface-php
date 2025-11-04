@@ -193,4 +193,54 @@ final class CreateResponseTest extends TestCase
         $this->assertTrue(isset($response['type']));
         $this->assertSame(Type::TEXT_GENERATION, $response['type']);
     }
+
+    public function testFromWithDefaultType(): void
+    {
+        $attributes = ['custom_data' => 'some value', 'result' => 42];
+
+        // Use an unsupported type that will trigger the default case
+        $response = CreateResponse::from($attributes, Type::AUTOMATIC_SPEECH_RECOGNITION);
+
+        $this->assertInstanceOf(CreateResponse::class, $response);
+        $this->assertSame(Type::AUTOMATIC_SPEECH_RECOGNITION, $response->type);
+        $this->assertNull($response->generatedText);
+        $this->assertNull($response->summarization);
+        $this->assertEmpty($response->sentimentAnalysis);
+        $this->assertEmpty($response->filledMasks);
+        $this->assertEmpty($response->emotionClassification);
+        $this->assertSame($attributes, $response->rawResponse);
+    }
+
+    public function testToArrayWithDefaultType(): void
+    {
+        $attributes = ['custom_data' => 'some value', 'result' => 42];
+
+        $response = CreateResponse::from($attributes, Type::AUTOMATIC_SPEECH_RECOGNITION);
+        $array = $response->toArray();
+
+        $this->assertSame(Type::AUTOMATIC_SPEECH_RECOGNITION, $array['type']);
+        $this->assertSame('some value', $array['custom_data']);
+        $this->assertSame(42, $array['result']);
+    }
+
+    public function testToArrayWithDefaultTypeAndNullRawResponse(): void
+    {
+        // Create response without attributes to trigger null rawResponse case
+        $response = new \ReflectionClass(CreateResponse::class);
+        $constructor = $response->getConstructor();
+        $instance = $response->newInstanceWithoutConstructor();
+        
+        $typeProperty = $response->getProperty('type');
+        $typeProperty->setAccessible(true);
+        $typeProperty->setValue($instance, Type::IMAGE_TO_TEXT);
+        
+        $rawResponseProperty = $response->getProperty('rawResponse');
+        $rawResponseProperty->setAccessible(true);
+        $rawResponseProperty->setValue($instance, null);
+
+        $array = $instance->toArray();
+
+        $this->assertSame(Type::IMAGE_TO_TEXT, $array['type']);
+        $this->assertCount(1, $array); // Only type should be present
+    }
 }

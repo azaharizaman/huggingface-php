@@ -13,6 +13,22 @@ use PHPUnit\Framework\TestCase;
 
 final class InferenceTest extends TestCase
 {
+    public function testConstructor(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $inference = new Inference($transporter);
+
+        $this->assertInstanceOf(Inference::class, $inference);
+        
+        // Access the transporter property through reflection to ensure constructor is fully covered
+        $reflection = new \ReflectionClass($inference);
+        $transporterProperty = $reflection->getProperty('transporter');
+        $transporterProperty->setAccessible(true);
+        $actualTransporter = $transporterProperty->getValue($inference);
+        
+        $this->assertSame($transporter, $actualTransporter);
+    }
+
     public function testCreateReturnsResponse(): void
     {
         $transporter = $this->createMock(TransporterContract::class);
@@ -191,6 +207,94 @@ final class InferenceTest extends TestCase
                 'use_cache' => false,
                 'wait_for_model' => true,
             ],
+        ]);
+
+        $this->assertInstanceOf(CreateResponse::class, $response);
+    }
+
+    public function testCreateWithClipModel(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $transporter
+            ->expects($this->once())
+            ->method('requestObject')
+            ->willReturn([
+                [
+                    'generated_text' => 'A picture of a cat',
+                ],
+            ]);
+
+        $inference = new Inference($transporter);
+
+        $response = $inference->create([
+            'model' => 'openai/clip-vit-base-patch32',
+            'inputs' => 'image data',
+        ]);
+
+        $this->assertInstanceOf(CreateResponse::class, $response);
+    }
+
+    public function testCreateWithFluxModel(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $transporter
+            ->expects($this->once())
+            ->method('requestObject')
+            ->willReturn([
+                [
+                    'image' => 'base64_image_data',
+                ],
+            ]);
+
+        $inference = new Inference($transporter);
+
+        $response = $inference->create([
+            'model' => 'black-forest-labs/flux-dev',
+            'inputs' => 'A beautiful landscape',
+        ]);
+
+        $this->assertInstanceOf(CreateResponse::class, $response);
+    }
+
+    public function testCreateWithTranslationModelUnderscore(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $transporter
+            ->expects($this->once())
+            ->method('requestObject')
+            ->willReturn([
+                [
+                    'translation_text' => 'Bonjour le monde',
+                ],
+            ]);
+
+        $inference = new Inference($transporter);
+
+        $response = $inference->create([
+            'model' => 't5_large',
+            'inputs' => 'translate English to French: Hello world',
+        ]);
+
+        $this->assertInstanceOf(CreateResponse::class, $response);
+    }
+
+    public function testCreateWithTranslationModelByName(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $transporter
+            ->expects($this->once())
+            ->method('requestObject')
+            ->willReturn([
+                [
+                    'translation_text' => 'Hola mundo',
+                ],
+            ]);
+
+        $inference = new Inference($transporter);
+
+        $response = $inference->create([
+            'model' => 'Helsinki-NLP/opus-mt-en-es-translation',
+            'inputs' => 'Hello world',
         ]);
 
         $this->assertInstanceOf(CreateResponse::class, $response);
