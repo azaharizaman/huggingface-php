@@ -67,7 +67,7 @@ final class Inference
             return Type::SENTENCE_SIMILARITY;
         }
 
-        if (str_contains($model, 'translation') || str_contains($model, 't5')) {
+        if (str_contains($model, 'translation') || preg_match('/\bt5[-_]/i', $model)) {
             return Type::TRANSLATION;
         }
 

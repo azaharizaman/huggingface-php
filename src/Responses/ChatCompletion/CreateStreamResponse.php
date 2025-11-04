@@ -150,8 +150,8 @@ final class CreateStreamResponse implements ResponseContract
             ],
             'usage' => $lastChunk['usage'] ?? [
                 'prompt_tokens' => 0,
-                'completion_tokens' => str_word_count($content),
-                'total_tokens' => str_word_count($content)
+                'completion_tokens' => 0,
+                'total_tokens' => 0
             ]
         ]);
     }

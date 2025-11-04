@@ -1,4 +1,4 @@
-## # Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -28,11 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### 🔧 Enhanced Inference Capabilities
 - **EXPANDED**: Task types from 5 to 17 comprehensive categories:
-  - Audio: `AUDIO_TO_AUDIO`, `AUTOMATIC_SPEECH_RECOGNITION`, `TEXT_TO_SPEECH`
-  - Vision: `IMAGE_TO_TEXT`, `TEXT_TO_IMAGE`, `IMAGE_CLASSIFICATION`
-  - Multimodal: `VISUAL_QUESTION_ANSWERING`, `DOCUMENT_QUESTION_ANSWERING`
-  - Advanced NLP: `TABLE_QUESTION_ANSWERING`, `TABULAR_CLASSIFICATION`, `TABULAR_REGRESSION`
-  - Core NLP: Enhanced existing `TEXT_GENERATION`, `SUMMARIZATION`, etc.
+  - Audio: `AUDIO_TO_AUDIO`, `AUTOMATIC_SPEECH_RECOGNITION`, `TEXT_TO_SPEECH`, `AUDIO_CLASSIFICATION`
+  - Vision: `IMAGE_TO_TEXT`, `TEXT_TO_IMAGE`, `IMAGE_TO_IMAGE`
+  - Multimodal: `IMAGE_TEXT_TO_TEXT`
+  - Core NLP: Enhanced existing `TEXT_GENERATION`, `SUMMARIZATION`, `FILL_MASK`, `SENTIMENT_ANALYSIS`, `EMOTION_CLASSIFICATION`, `TRANSLATION`, `SENTENCE_SIMILARITY`
+  - Conversational: `CONVERSATIONAL`, `CHAT_COMPLETION`
 - **NEW**: Provider-aware inference with automatic routing
 - **NEW**: Enhanced response handling for new task types
 
