@@ -37,11 +37,11 @@ final class CreateStreamResponseDelta implements ResponseContract
     public function toArray(): array
     {
         $array = [];
-        
+
         if ($this->role !== null) {
             $array['role'] = $this->role;
         }
-        
+
         if ($this->content !== null) {
             $array['content'] = $this->content;
         }

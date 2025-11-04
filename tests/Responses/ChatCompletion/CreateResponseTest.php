@@ -43,17 +43,17 @@ final class CreateResponseTest extends TestCase
         $this->assertSame(1677652288, $response->created);
         $this->assertSame('microsoft/DialoGPT-medium', $response->model);
         $this->assertCount(1, $response->choices);
-        
+
         $choice = $response->choices[0];
         $this->assertInstanceOf(CreateResponseChoice::class, $choice);
         $this->assertSame(0, $choice->index);
         $this->assertSame('stop', $choice->finishReason);
-        
+
         $message = $choice->message;
         $this->assertInstanceOf(CreateResponseMessage::class, $message);
         $this->assertSame('assistant', $message->role);
         $this->assertSame('Hello! How can I help you today?', $message->content);
-        
+
         $usage = $response->usage;
         $this->assertInstanceOf(CreateResponseUsage::class, $usage);
         $this->assertSame(9, $usage->promptTokens);

@@ -15,12 +15,12 @@ final class CreateStreamResponseTest extends TestCase
     {
         $stream = $this->createMock(StreamInterface::class);
         $stream->method('__toString')->willReturn("data: {\"id\":\"chatcmpl-123\",\"object\":\"chat.completion.chunk\",\"created\":1677652288,\"model\":\"microsoft/DialoGPT-medium\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"finish_reason\":null}]}\n\ndata: [DONE]\n\n");
-        
+
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $streamResponse = CreateStreamResponse::from($response);
-        
+
         $this->assertInstanceOf(CreateStreamResponse::class, $streamResponse);
         $this->assertSame('streaming', $streamResponse->model);
         $this->assertSame('chat.completion.chunk', $streamResponse->object);
@@ -33,17 +33,17 @@ final class CreateStreamResponseTest extends TestCase
         $stream = $this->createMock(StreamInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $streamResponse = CreateStreamResponse::from($response);
         $array = $streamResponse->toArray();
-        
+
         $this->assertIsArray($array);
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('object', $array);
         $this->assertArrayHasKey('created', $array);
         $this->assertArrayHasKey('model', $array);
         $this->assertArrayHasKey('choices', $array);
-        
+
         $this->assertSame('streaming', $array['model']);
         $this->assertSame('chat.completion.chunk', $array['object']);
         $this->assertIsArray($array['choices']);
@@ -54,9 +54,9 @@ final class CreateStreamResponseTest extends TestCase
         $stream = $this->createMock(StreamInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $streamResponse = CreateStreamResponse::from($response);
-        
+
         $this->assertSame('streaming', $streamResponse['model']);
         $this->assertSame('chat.completion.chunk', $streamResponse['object']);
         $this->assertTrue(isset($streamResponse['id']));
@@ -69,9 +69,9 @@ final class CreateStreamResponseTest extends TestCase
         $stream = $this->createMock(StreamInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $streamResponse = CreateStreamResponse::from($response);
-        
+
         $this->assertIsString($streamResponse->id);
         $this->assertSame('chat.completion.chunk', $streamResponse->object);
         $this->assertIsInt($streamResponse->created);

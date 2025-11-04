@@ -40,7 +40,7 @@ final class Client implements Contracts\ClientContract
         if ($this->chatTransporter === null) {
             $this->chatTransporter = $this->createChatTransporter();
         }
-        
+
         return new ChatCompletion($this->chatTransporter);
     }
 
@@ -52,7 +52,7 @@ final class Client implements Contracts\ClientContract
         if ($this->hubTransporter === null) {
             $this->hubTransporter = $this->createHubTransporter();
         }
-        
+
         return new Hub($this->hubTransporter);
     }
 
@@ -64,29 +64,29 @@ final class Client implements Contracts\ClientContract
         if ($this->transporter instanceof HttpTransporter) {
             // Use reflection to get the current transporter's configuration
             $reflection = new \ReflectionClass($this->transporter);
-            
+
             $clientProperty = $reflection->getProperty('client');
             $clientProperty->setAccessible(true);
             $client = $clientProperty->getValue($this->transporter);
-            
+
             $headersProperty = $reflection->getProperty('headers');
             $headersProperty->setAccessible(true);
             $headers = $headersProperty->getValue($this->transporter);
-            
+
             $queryParamsProperty = $reflection->getProperty('queryParams');
             $queryParamsProperty->setAccessible(true);
             $queryParams = $queryParamsProperty->getValue($this->transporter);
-            
+
             $streamHandlerProperty = $reflection->getProperty('streamHandler');
             $streamHandlerProperty->setAccessible(true);
             $streamHandler = $streamHandlerProperty->getValue($this->transporter);
-            
+
             // Create new transporter with chat completion base URI
             $chatBaseUri = BaseUri::from('router.huggingface.co');
-            
+
             return new HttpTransporter($client, $chatBaseUri, $headers, $queryParams, $streamHandler);
         }
-        
+
         return $this->transporter;
     }
 
@@ -98,29 +98,29 @@ final class Client implements Contracts\ClientContract
         if ($this->transporter instanceof HttpTransporter) {
             // Use reflection to get the current transporter's configuration
             $reflection = new \ReflectionClass($this->transporter);
-            
+
             $clientProperty = $reflection->getProperty('client');
             $clientProperty->setAccessible(true);
             $client = $clientProperty->getValue($this->transporter);
-            
+
             $headersProperty = $reflection->getProperty('headers');
             $headersProperty->setAccessible(true);
             $headers = $headersProperty->getValue($this->transporter);
-            
+
             $queryParamsProperty = $reflection->getProperty('queryParams');
             $queryParamsProperty->setAccessible(true);
             $queryParams = $queryParamsProperty->getValue($this->transporter);
-            
+
             $streamHandlerProperty = $reflection->getProperty('streamHandler');
             $streamHandlerProperty->setAccessible(true);
             $streamHandler = $streamHandlerProperty->getValue($this->transporter);
-            
+
             // Create new transporter with Hub API base URI
             $hubBaseUri = BaseUri::from('huggingface.co');
-            
+
             return new HttpTransporter($client, $hubBaseUri, $headers, $queryParams, $streamHandler);
         }
-        
+
         return $this->transporter;
     }
 }

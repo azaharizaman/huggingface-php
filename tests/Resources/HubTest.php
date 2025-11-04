@@ -84,11 +84,11 @@ final class HubTest extends TestCase
 
         $this->assertInstanceOf(ModelsListResponse::class, $response);
         $this->assertCount(2, $response->models);
-        
+
         $firstModel = $response->models[0];
         $this->assertSame('microsoft/DialoGPT-medium', $firstModel->id);
         $this->assertSame('microsoft', $firstModel->author);
-        
+
         $secondModel = $response->models[1];
         $this->assertSame('gpt2', $secondModel->id);
         $this->assertSame('openai-community', $secondModel->author);
@@ -148,7 +148,7 @@ final class HubTest extends TestCase
         $this->assertNull($response['periodEnd']);
         $this->assertSame('https://example.com/avatar.jpg', $response['avatarUrl']);
         $this->assertCount(1, $response['orgs']);
-        
+
         $org = $response['orgs'][0];
         $this->assertSame('testorg', $org['name']);
         $this->assertSame('Test Organization', $org['fullname']);

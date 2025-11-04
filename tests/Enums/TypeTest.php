@@ -99,7 +99,7 @@ final class TypeTest extends TestCase
     {
         $types = Type::cases();
         $this->assertCount(17, $types);
-        
+
         $values = array_map(fn($case) => $case->value, $types);
         $this->assertContains('text-generation', $values);
         $this->assertContains('fill-mask', $values);

@@ -192,7 +192,7 @@ final class FactoryTest extends TestCase
         $client = $factory->withApiKey('test-api-key')->makeChatClient();
 
         $this->assertInstanceOf(Client::class, $client);
-        
+
         // Verify it returns a chat completion resource
         $chatCompletion = $client->chatCompletion();
         $this->assertNotNull($chatCompletion);

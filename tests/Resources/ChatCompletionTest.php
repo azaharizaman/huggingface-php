@@ -90,13 +90,13 @@ final class ChatCompletionTest extends TestCase
     public function testCreateStreamReturnsCreateStreamResponse(): void
     {
         $streamData = "data: {\"id\":\"chatcmpl-123\",\"object\":\"chat.completion.chunk\",\"created\":1677652288,\"model\":\"microsoft/DialoGPT-medium\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"finish_reason\":null}]}\n\ndata: [DONE]\n\n";
-        
+
         $stream = $this->createMock(StreamInterface::class);
         $stream->method('__toString')->willReturn($streamData);
-        
+
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $transporter = $this->createMock(TransporterContract::class);
         $transporter
             ->expects($this->once())
@@ -119,13 +119,13 @@ final class ChatCompletionTest extends TestCase
     public function testCreateStreamWithAllParameters(): void
     {
         $streamData = "data: {\"choices\":[{\"delta\":{\"content\":\"test\"}}]}\n\n";
-        
+
         $stream = $this->createMock(StreamInterface::class);
         $stream->method('__toString')->willReturn($streamData);
-        
+
         $response = $this->createMock(ResponseInterface::class);
         $response->method('getBody')->willReturn($stream);
-        
+
         $transporter = $this->createMock(TransporterContract::class);
         $transporter
             ->expects($this->once())

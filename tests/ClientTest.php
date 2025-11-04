@@ -46,7 +46,7 @@ final class ClientTest extends TestCase
         $headers = Headers::withAuthorization(ApiKey::from('test-key'));
         $queryParams = QueryParams::create();
         $streamHandler = fn() => null;
-        
+
         $transporter = new HttpTransporter($httpClient, $baseUri, $headers, $queryParams, $streamHandler);
         $client = new Client($transporter);
 
@@ -76,7 +76,7 @@ final class ClientTest extends TestCase
         $headers = Headers::withAuthorization(ApiKey::from('test-key'));
         $queryParams = QueryParams::create();
         $streamHandler = fn() => null;
-        
+
         $transporter = new HttpTransporter($httpClient, $baseUri, $headers, $queryParams, $streamHandler);
         $client = new Client($transporter);
 
@@ -116,7 +116,7 @@ final class ClientTest extends TestCase
         $headers = Headers::withAuthorization(ApiKey::from('test-key'));
         $queryParams = QueryParams::create();
         $streamHandler = fn() => null;
-        
+
         $transporter = new HttpTransporter($httpClient, $baseUri, $headers, $queryParams, $streamHandler);
         $client = new Client($transporter);
 

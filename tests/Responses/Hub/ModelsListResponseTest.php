@@ -37,14 +37,14 @@ final class ModelsListResponseTest extends TestCase
 
         $this->assertInstanceOf(ModelsListResponse::class, $response);
         $this->assertCount(2, $response->models);
-        
+
         $firstModel = $response->models[0];
         $this->assertInstanceOf(ModelInfoResponse::class, $firstModel);
         $this->assertSame('microsoft/DialoGPT-medium', $firstModel->id);
         $this->assertSame('microsoft', $firstModel->author);
         $this->assertSame(50000, $firstModel->downloads);
         $this->assertSame(1000, $firstModel->likes);
-        
+
         $secondModel = $response->models[1];
         $this->assertInstanceOf(ModelInfoResponse::class, $secondModel);
         $this->assertSame('gpt2', $secondModel->id);
@@ -79,7 +79,7 @@ final class ModelsListResponseTest extends TestCase
 
         $this->assertIsArray($array);
         $this->assertCount(1, $array);
-        
+
         $modelArray = $array[0];
         $this->assertSame('test-model', $modelArray['id']);
         $this->assertSame('testuser', $modelArray['author']);
@@ -104,7 +104,7 @@ final class ModelsListResponseTest extends TestCase
         $this->assertTrue(isset($response[0]));
         $this->assertTrue(isset($response[1]));
         $this->assertFalse(isset($response[2]));
-        
+
         $firstModel = $response[0];
         $this->assertIsArray($firstModel);
         $this->assertSame('test-model-1', $firstModel['id']);

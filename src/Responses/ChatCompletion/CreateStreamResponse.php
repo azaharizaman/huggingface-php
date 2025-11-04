@@ -60,27 +60,27 @@ final class CreateStreamResponse implements ResponseContract
         }
 
         $body = $this->stream->getBody();
-        
+
         while (!$body->eof()) {
             $line = '';
             while (!$body->eof() && ($char = $body->read(1)) !== "\n") {
                 $line .= $char;
             }
-            
+
             $line = trim($line);
-            
+
             // Skip empty lines and non-data lines
             if (empty($line) || !str_starts_with($line, 'data: ')) {
                 continue;
             }
-            
+
             $data = substr($line, 6); // Remove "data: " prefix
-            
+
             // Handle the end of stream
             if ($data === '[DONE]') {
                 break;
             }
-            
+
             try {
                 $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
                 yield $decoded;
@@ -97,7 +97,7 @@ final class CreateStreamResponse implements ResponseContract
     public function collect(): CreateResponse
     {
         $chunks = iterator_to_array($this->getIterator());
-        
+
         if (empty($chunks)) {
             // Return a default response if no chunks
             return CreateResponse::from([
@@ -126,7 +126,7 @@ final class CreateStreamResponse implements ResponseContract
         // Combine all chunks into a single response
         $lastChunk = end($chunks);
         $content = '';
-        
+
         foreach ($chunks as $chunk) {
             if (isset($chunk['choices'][0]['delta']['content'])) {
                 $content .= $chunk['choices'][0]['delta']['content'];

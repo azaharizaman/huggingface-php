@@ -98,7 +98,7 @@ final class ProviderTest extends TestCase
     {
         $providers = Provider::cases();
         $this->assertCount(17, $providers);
-        
+
         $values = array_map(fn($case) => $case->value, $providers);
         $this->assertContains('auto', $values);
         $this->assertContains('hf-inference', $values);
