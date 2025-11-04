@@ -8,8 +8,9 @@ parameters:
         - '#generic trait.*does not specify its types#'
         - '#has no return type specified#'
         - '#Offset .* does not exist on array.*#'
-        - '#Parameter #1 \$attributes of static method.*expects array, array\|string given#'
+        - '~Parameter #1 \$attributes of static method.*expects array, array\|string given~'
         - '#Cannot call method toArray\(\) on.*\|null#'
         - '#should return array.*but returns array#'
     tmpDir: var/cache/phpstan
     checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
