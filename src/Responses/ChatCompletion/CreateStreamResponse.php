@@ -62,20 +62,20 @@ final class CreateStreamResponse implements ResponseContract
         $body = $this->stream->getBody();
 
         $buffer = '';
-        
+
         while (!$body->eof()) {
             $chunk = $body->read(8192); // Read in larger chunks for efficiency
             if ($chunk === '') {
                 break;
             }
-            
+
             $buffer .= $chunk;
-            
+
             // Process complete lines from buffer
             while (($pos = strpos($buffer, "\n")) !== false) {
                 $line = substr($buffer, 0, $pos);
                 $buffer = substr($buffer, $pos + 1);
-                
+
                 $line = trim($line);
 
                 // Skip empty lines and non-data lines
@@ -99,7 +99,7 @@ final class CreateStreamResponse implements ResponseContract
                 }
             }
         }
-        
+
         // Process any remaining data in buffer
         if (!empty($buffer)) {
             $line = trim($buffer);
