@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AzahariZaman\Huggingface\Responses\ChatCompletion;
 
+use Psr\Http\Message\ResponseInterface;
 use AzahariZaman\Huggingface\Contracts\ResponseContract;
 use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * @implements ResponseContract<array{id: string, object: string, created: int, model: string, choices: array<int, array{index: int, delta: array{role?: string, content?: string}, finish_reason: string|null}>}>
@@ -61,32 +61,58 @@ final class CreateStreamResponse implements ResponseContract
 
         $body = $this->stream->getBody();
 
+        $buffer = '';
+        
         while (!$body->eof()) {
-            $line = '';
-            while (!$body->eof() && ($char = $body->read(1)) !== "\n") {
-                $line .= $char;
-            }
-
-            $line = trim($line);
-
-            // Skip empty lines and non-data lines
-            if (empty($line) || !str_starts_with($line, 'data: ')) {
-                continue;
-            }
-
-            $data = substr($line, 6); // Remove "data: " prefix
-
-            // Handle the end of stream
-            if ($data === '[DONE]') {
+            $chunk = $body->read(8192); // Read in larger chunks for efficiency
+            if ($chunk === '') {
                 break;
             }
+            
+            $buffer .= $chunk;
+            
+            // Process complete lines from buffer
+            while (($pos = strpos($buffer, "\n")) !== false) {
+                $line = substr($buffer, 0, $pos);
+                $buffer = substr($buffer, $pos + 1);
+                
+                $line = trim($line);
 
-            try {
-                $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
-                yield $decoded;
-            } catch (\JsonException $e) {
-                // Skip malformed JSON
-                continue;
+                // Skip empty lines and non-data lines
+                if (empty($line) || !str_starts_with($line, 'data: ')) {
+                    continue;
+                }
+
+                $data = substr($line, 6); // Remove "data: " prefix
+
+                // Handle the end of stream
+                if ($data === '[DONE]') {
+                    break 2; // Break both loops
+                }
+
+                try {
+                    $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+                    yield $decoded;
+                } catch (\JsonException $e) {
+                    // Skip malformed JSON
+                    continue;
+                }
+            }
+        }
+        
+        // Process any remaining data in buffer
+        if (!empty($buffer)) {
+            $line = trim($buffer);
+            if (!empty($line) && str_starts_with($line, 'data: ')) {
+                $data = substr($line, 6);
+                if ($data !== '[DONE]') {
+                    try {
+                        $decoded = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+                        yield $decoded;
+                    } catch (\JsonException $e) {
+                        // Skip malformed JSON
+                    }
+                }
             }
         }
     }
