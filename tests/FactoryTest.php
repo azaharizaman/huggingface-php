@@ -186,7 +186,19 @@ final class FactoryTest extends TestCase
         $this->assertInstanceOf(\Closure::class, $streamHandler);
     }
 
-    public function testMakeStreamHandlerThrowsExceptionForUnsupportedClient(): void
+    public function testMakeChatClient(): void
+    {
+        $factory = new Factory();
+        $client = $factory->withApiKey('test-api-key')->makeChatClient();
+
+        $this->assertInstanceOf(Client::class, $client);
+        
+        // Verify it returns a chat completion resource
+        $chatCompletion = $client->chatCompletion();
+        $this->assertNotNull($chatCompletion);
+    }
+
+    public function testUnsupportedClientStreamHandler(): void
     {
         $unsupportedClient = $this->createMock(ClientInterface::class);
         $factory = new Factory();
