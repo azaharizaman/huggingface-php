@@ -229,11 +229,11 @@ final class CreateResponseTest extends TestCase
         $response = new \ReflectionClass(CreateResponse::class);
         $constructor = $response->getConstructor();
         $instance = $response->newInstanceWithoutConstructor();
-        
+
         $typeProperty = $response->getProperty('type');
         $typeProperty->setAccessible(true);
         $typeProperty->setValue($instance, Type::IMAGE_TO_TEXT);
-        
+
         $rawResponseProperty = $response->getProperty('rawResponse');
         $rawResponseProperty->setAccessible(true);
         $rawResponseProperty->setValue($instance, null);

@@ -19,13 +19,13 @@ final class InferenceTest extends TestCase
         $inference = new Inference($transporter);
 
         $this->assertInstanceOf(Inference::class, $inference);
-        
+
         // Access the transporter property through reflection to ensure constructor is fully covered
         $reflection = new \ReflectionClass($inference);
         $transporterProperty = $reflection->getProperty('transporter');
         $transporterProperty->setAccessible(true);
         $actualTransporter = $transporterProperty->getValue($inference);
-        
+
         $this->assertSame($transporter, $actualTransporter);
     }
 

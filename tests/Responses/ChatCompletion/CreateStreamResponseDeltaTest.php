@@ -140,7 +140,7 @@ final class CreateStreamResponseDeltaTest extends TestCase
         $this->assertNull($delta['role']);
         $this->assertNull($delta['content']);
         // Note: isset() returns false for null values in ArrayAccessible trait
-        $this->assertFalse(isset($delta['role'])); 
+        $this->assertFalse(isset($delta['role']));
         $this->assertFalse(isset($delta['content']));
     }
 
