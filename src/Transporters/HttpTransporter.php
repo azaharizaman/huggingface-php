@@ -113,4 +113,19 @@ final class HttpTransporter implements TransporterContract
 
         return $response;
     }
+
+    /**
+     * Creates a new transporter instance with a different base URI.
+     * This allows reusing the same client configuration for different API endpoints.
+     */
+    public function withBaseUri(BaseUri $baseUri): self
+    {
+        return new self(
+            $this->client,
+            $baseUri,
+            $this->headers,
+            $this->queryParams,
+            $this->streamHandler
+        );
+    }
 }
