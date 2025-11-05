@@ -186,7 +186,50 @@ final class FactoryTest extends TestCase
         $this->assertInstanceOf(\Closure::class, $streamHandler);
     }
 
-    public function testMakeStreamHandlerThrowsExceptionForUnsupportedClient(): void
+    public function testMakeChatClient(): void
+    {
+        $factory = new Factory();
+        $client = $factory->withApiKey('test-api-key')->makeChatClient();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        // Verify it returns a chat completion resource
+        $chatCompletion = $client->chatCompletion();
+        $this->assertNotNull($chatCompletion);
+    }
+
+    public function testMakeChatClientWithoutApiKey(): void
+    {
+        $factory = new Factory();
+        $client = $factory->makeChatClient();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        // Verify it returns a chat completion resource
+        $chatCompletion = $client->chatCompletion();
+        $this->assertNotNull($chatCompletion);
+    }
+
+    public function testMakeChatClientWithAllOptions(): void
+    {
+        $httpClient = $this->createMock(ClientInterface::class);
+        $factory = new Factory();
+        $client = $factory
+            ->withApiKey('test-key')
+            ->withHttpClient($httpClient)
+            ->withBaseUri('custom.chat.api.com')
+            ->withHttpHeader('X-Custom', 'value')
+            ->withQueryParam('test', 'param')
+            ->makeChatClient();
+
+        $this->assertInstanceOf(Client::class, $client);
+
+        // Verify it returns a chat completion resource
+        $chatCompletion = $client->chatCompletion();
+        $this->assertNotNull($chatCompletion);
+    }
+
+    public function testUnsupportedClientStreamHandler(): void
     {
         $unsupportedClient = $this->createMock(ClientInterface::class);
         $factory = new Factory();

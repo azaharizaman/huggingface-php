@@ -54,4 +54,35 @@ final class QueryParamsTest extends TestCase
             'param3' => 'value3',
         ], $params->toArray());
     }
+
+    public function testWithParamOverwritesExistingParam(): void
+    {
+        $params = QueryParams::create()
+            ->withParam('key', 'original')
+            ->withParam('key', 'updated');
+
+        $this->assertSame(['key' => 'updated'], $params->toArray());
+    }
+
+    public function testWithParamAddsZeroValue(): void
+    {
+        $params = QueryParams::create()->withParam('count', 0);
+
+        $this->assertSame(['count' => 0], $params->toArray());
+    }
+
+    public function testWithParamAddsEmptyString(): void
+    {
+        $params = QueryParams::create()->withParam('empty', '');
+
+        $this->assertSame(['empty' => ''], $params->toArray());
+    }
+
+    public function testToArrayReturnsEmptyArrayForNewInstance(): void
+    {
+        $params = QueryParams::create();
+
+        $this->assertIsArray($params->toArray());
+        $this->assertEmpty($params->toArray());
+    }
 }

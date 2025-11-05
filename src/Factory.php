@@ -128,7 +128,40 @@ final class Factory
             $headers = $headers->withCustomHeader($name, $value);
         }
 
+        // Default to inference API base URI for backward compatibility
         $baseUri = BaseUri::from($this->baseUri ?: 'api-inference.huggingface.co');
+
+        $queryParams = QueryParams::create();
+        foreach ($this->queryParams as $name => $value) {
+            $queryParams = $queryParams->withParam($name, $value);
+        }
+
+        $client = $this->httpClient ??= Psr18ClientDiscovery::find();
+
+        $sendAsync = $this->makeStreamHandler($client);
+
+        $transporter = new HttpTransporter($client, $baseUri, $headers, $queryParams, $sendAsync);
+
+        return new Client($transporter);
+    }
+
+    /**
+     * Creates a new Hugging Face AI Client configured for Chat Completions.
+     */
+    public function makeChatClient(): Client
+    {
+        $headers = Headers::create();
+
+        if ($this->apiKey !== null) {
+            $headers = Headers::withAuthorization(ApiKey::from($this->apiKey));
+        }
+
+        foreach ($this->headers as $name => $value) {
+            $headers = $headers->withCustomHeader($name, $value);
+        }
+
+        // Use router endpoint for chat completions
+        $baseUri = BaseUri::from($this->baseUri ?: 'router.huggingface.co');
 
         $queryParams = QueryParams::create();
         foreach ($this->queryParams as $name => $value) {

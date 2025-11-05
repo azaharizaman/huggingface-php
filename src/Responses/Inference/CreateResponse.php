@@ -22,6 +22,7 @@ final class CreateResponse implements ResponseContract
         public array $sentimentAnalysis = [],
         public array $filledMasks = [],
         public array $emotionClassification = [],
+        public mixed $rawResponse = null,
     ) {
     }
 
@@ -55,9 +56,12 @@ final class CreateResponse implements ResponseContract
                 $self->emotionClassification = array_map(fn (array $result): CreateResponseEmotionClassification => CreateResponseEmotionClassification::from(
                     $result
                 ), $attributes);
+                return $self;
+            default:
+                // For new task types, store raw response
+                $self->rawResponse = $attributes;
+                return $self;
         }
-
-        return $self;
     }
 
     /**
@@ -84,6 +88,12 @@ final class CreateResponse implements ResponseContract
                 break;
             case Type::EMOTION_CLASSIFICATION->value:
                 $array['emotion_classification'] = array_map(fn (CreateResponseEmotionClassification $emotionClassification): array => $emotionClassification->toArray(), $this->emotionClassification);
+                break;
+            default:
+                // For new task types, return raw response
+                if ($this->rawResponse !== null) {
+                    return array_merge($array, is_array($this->rawResponse) ? $this->rawResponse : ['data' => $this->rawResponse]);
+                }
                 break;
         }
 
