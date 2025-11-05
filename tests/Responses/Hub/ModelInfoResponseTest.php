@@ -100,4 +100,65 @@ final class ModelInfoResponseTest extends TestCase
         $this->assertTrue(isset($response['id']));
         $this->assertFalse(isset($response['nonexistent']));
     }
+
+    public function testFromArrayWithAllFields(): void
+    {
+        $attributes = [
+            'id' => 'full-model',
+            '_id' => 'internal123',
+            'inference' => 'text-classification',
+            'author' => 'fulluser',
+            'last_modified' => '2023-12-01T10:00:00.000Z',
+            'private' => true,
+            'downloads' => 5000,
+            'likes' => 500,
+            'tags' => ['tag1', 'tag2', 'tag3'],
+            'pipeline_tag' => 'text-classification',
+            'library_name' => 'pytorch',
+            'sha' => 'hash123',
+            'created_at' => '2023-01-01T00:00:00.000Z',
+        ];
+
+        $response = ModelInfoResponse::from($attributes);
+
+        $this->assertSame('full-model', $response->id);
+        $this->assertSame('internal123', $response->_id);
+        $this->assertSame('text-classification', $response->inference);
+        $this->assertSame('fulluser', $response->author);
+        $this->assertSame('2023-12-01T10:00:00.000Z', $response->last_modified);
+        $this->assertSame(5000, $response->downloads);
+        $this->assertSame(500, $response->likes);
+        $this->assertSame(['tag1', 'tag2', 'tag3'], $response->tags);
+        $this->assertSame('text-classification', $response->pipeline_tag);
+        $this->assertSame('pytorch', $response->library_name);
+        $this->assertSame('hash123', $response->sha);
+        $this->assertSame('2023-01-01T00:00:00.000Z', $response->created_at);
+    }
+
+    public function testFromArrayWithNoDownloadsOrLikes(): void
+    {
+        $attributes = [
+            'id' => 'new-model',
+            'author' => 'newuser',
+            'downloads' => 0,
+            'likes' => 0,
+        ];
+
+        $response = ModelInfoResponse::from($attributes);
+
+        $this->assertSame(0, $response->downloads);
+        $this->assertSame(0, $response->likes);
+    }
+
+    public function testFromArrayWithEmptyTags(): void
+    {
+        $attributes = [
+            'id' => 'model-no-tags',
+            'tags' => [],
+        ];
+
+        $response = ModelInfoResponse::from($attributes);
+
+        $this->assertSame([], $response->tags);
+    }
 }

@@ -50,4 +50,74 @@ final class CreateResponseEmotionClassificationTest extends TestCase
         $this->assertSame(0.8, $response['anger']);
         $this->assertSame(0.2, $response['fear']);
     }
+
+    public function testFromWithEmptyArray(): void
+    {
+        $attributes = [];
+
+        $response = CreateResponseEmotionClassification::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertInstanceOf(CreateResponseEmotionClassification::class, $response);
+        $this->assertSame([], $array);
+    }
+
+    public function testFromWithSingleEmotion(): void
+    {
+        $attributes = [
+            ['label' => 'happiness', 'score' => 1.0],
+        ];
+
+        $response = CreateResponseEmotionClassification::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertSame(['happiness' => 1.0], $array);
+    }
+
+    public function testFromWithMultipleEmotions(): void
+    {
+        $attributes = [
+            ['label' => 'joy', 'score' => 0.5],
+            ['label' => 'sadness', 'score' => 0.2],
+            ['label' => 'anger', 'score' => 0.15],
+            ['label' => 'fear', 'score' => 0.1],
+            ['label' => 'surprise', 'score' => 0.05],
+        ];
+
+        $response = CreateResponseEmotionClassification::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertCount(5, $array);
+        $this->assertArrayHasKey('joy', $array);
+        $this->assertArrayHasKey('sadness', $array);
+        $this->assertArrayHasKey('anger', $array);
+        $this->assertArrayHasKey('fear', $array);
+        $this->assertArrayHasKey('surprise', $array);
+    }
+
+    public function testArrayAccessOffsetExists(): void
+    {
+        $attributes = [
+            ['label' => 'joy', 'score' => 0.9],
+        ];
+
+        $response = CreateResponseEmotionClassification::from($attributes);
+
+        $this->assertTrue(isset($response['joy']));
+        $this->assertFalse(isset($response['nonexistent']));
+    }
+
+    public function testFromWithDecimalScores(): void
+    {
+        $attributes = [
+            ['label' => 'neutral', 'score' => 0.12345],
+            ['label' => 'positive', 'score' => 0.87655],
+        ];
+
+        $response = CreateResponseEmotionClassification::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertSame(0.12345, $array['neutral']);
+        $this->assertSame(0.87655, $array['positive']);
+    }
 }

@@ -110,4 +110,72 @@ final class ModelsListResponseTest extends TestCase
         $this->assertSame('test-model-1', $firstModel['id']);
         $this->assertSame('testuser1', $firstModel['author']);
     }
+
+    public function testFromSingleModel(): void
+    {
+        $attributes = [
+            [
+                'id' => 'single-model',
+                'author' => 'singleauthor',
+                'downloads' => 1000,
+                'likes' => 50,
+            ],
+        ];
+
+        $response = ModelsListResponse::from($attributes);
+
+        $this->assertCount(1, $response->models);
+        $this->assertInstanceOf(ModelInfoResponse::class, $response->models[0]);
+        $this->assertSame('single-model', $response->models[0]->id);
+    }
+
+    public function testFromMultipleModelsWithDifferentData(): void
+    {
+        $attributes = [
+            [
+                'id' => 'model-1',
+                'downloads' => 1000,
+            ],
+            [
+                'id' => 'model-2',
+                'likes' => 500,
+            ],
+            [
+                'id' => 'model-3',
+                'author' => 'author3',
+            ],
+        ];
+
+        $response = ModelsListResponse::from($attributes);
+
+        $this->assertCount(3, $response->models);
+        $this->assertSame('model-1', $response->models[0]->id);
+        $this->assertSame('model-2', $response->models[1]->id);
+        $this->assertSame('model-3', $response->models[2]->id);
+    }
+
+    public function testToArrayWithMultipleModels(): void
+    {
+        $attributes = [
+            [
+                'id' => 'model-a',
+                'author' => 'author-a',
+                'downloads' => 100,
+            ],
+            [
+                'id' => 'model-b',
+                'author' => 'author-b',
+                'downloads' => 200,
+            ],
+        ];
+
+        $response = ModelsListResponse::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertCount(2, $array);
+        $this->assertSame('model-a', $array[0]['id']);
+        $this->assertSame('author-a', $array[0]['author']);
+        $this->assertSame('model-b', $array[1]['id']);
+        $this->assertSame('author-b', $array[1]['author']);
+    }
 }
