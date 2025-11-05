@@ -650,6 +650,41 @@ Here are some popular models for different tasks:
 - **Emotion**: `j-hartmann/emotion-english-distilroberta-base`
 - **Twitter Emotion**: `cardiffnlp/twitter-roberta-base-emotion`
 
+## 📁 Examples
+
+The `examples/` directory contains comprehensive demonstrations of all features and AI tasks supported by this library:
+
+### 🚀 Quick Start
+- **`quick_test.php`** - Instant verification that the library is working correctly
+- **`inference.php`** - Basic inference examples with common AI tasks
+
+### 🤖 AI Task Examples  
+- **`advanced_inference_tasks.php`** - Complete showcase of all 17 AI task types including:
+  - 🖼️ **Vision**: Image captioning, text-to-image, visual Q&A
+  - 🔊 **Audio**: Speech recognition, text-to-speech, audio classification  
+  - 🌐 **Language**: Translation, sentence similarity, conversational AI
+  - 📝 **Text**: Generation, sentiment analysis, summarization
+
+### ⚡ Advanced Features
+- **`streaming_example.php`** - Real-time streaming responses
+- **`comprehensive_example.php`** - Full API integration with multiple providers
+
+### 🏃 Running Examples
+
+```bash
+# Quick verification (no API key needed)
+php examples/quick_test.php
+
+# Basic AI tasks (set API key first)
+export HUGGINGFACE_API_KEY="your_key_here"
+php examples/inference.php
+
+# Explore advanced AI capabilities
+php examples/advanced_inference_tasks.php
+```
+
+> 💡 **Tip**: Each example file is self-contained and includes error handling, so you can run them individually to explore specific features.
+
 ## Testing
 
 Huggingface PHP uses PHPUnit for testing. The test suite provides comprehensive coverage of all classes, methods, and lines.
