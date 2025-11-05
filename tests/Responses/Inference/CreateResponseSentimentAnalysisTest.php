@@ -46,4 +46,70 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $this->assertSame('NEGATIVE', $response['label']);
         $this->assertSame('0.85', $response['score']);
     }
+
+    public function testFromWithNeutralSentiment(): void
+    {
+        $attributes = [
+            ['label' => 'NEUTRAL', 'score' => '0.50'],
+        ];
+
+        $response = CreateResponseSentimentAnalysis::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertSame('NEUTRAL', $array['label']);
+        $this->assertSame('0.50', $array['score']);
+    }
+
+    public function testFromWithHighConfidenceScore(): void
+    {
+        $attributes = [
+            ['label' => 'POSITIVE', 'score' => '0.9999'],
+        ];
+
+        $response = CreateResponseSentimentAnalysis::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertSame('POSITIVE', $array['label']);
+        $this->assertSame('0.9999', $array['score']);
+    }
+
+    public function testFromWithLowConfidenceScore(): void
+    {
+        $attributes = [
+            ['label' => 'NEGATIVE', 'score' => '0.0001'],
+        ];
+
+        $response = CreateResponseSentimentAnalysis::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertSame('NEGATIVE', $array['label']);
+        $this->assertSame('0.0001', $array['score']);
+    }
+
+    public function testArrayOffsetExists(): void
+    {
+        $attributes = [
+            ['label' => 'POSITIVE', 'score' => '0.75'],
+        ];
+
+        $response = CreateResponseSentimentAnalysis::from($attributes);
+
+        $this->assertTrue(isset($response['label']));
+        $this->assertTrue(isset($response['score']));
+        $this->assertFalse(isset($response['nonexistent']));
+    }
+
+    public function testToArrayStructure(): void
+    {
+        $attributes = [
+            ['label' => 'NEGATIVE', 'score' => '0.65'],
+        ];
+
+        $response = CreateResponseSentimentAnalysis::from($attributes);
+        $array = $response->toArray();
+
+        $this->assertArrayHasKey('label', $array);
+        $this->assertArrayHasKey('score', $array);
+        $this->assertCount(2, $array);
+    }
 }
