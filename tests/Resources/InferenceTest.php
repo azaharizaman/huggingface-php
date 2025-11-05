@@ -299,4 +299,28 @@ final class InferenceTest extends TestCase
 
         $this->assertInstanceOf(CreateResponse::class, $response);
     }
+
+    public function testDetectTypeFromModelMethod(): void
+    {
+        $transporter = $this->createMock(TransporterContract::class);
+        $inference = new Inference($transporter);
+
+        // Access the private detectTypeFromModel method via reflection
+        $reflection = new \ReflectionClass($inference);
+        $method = $reflection->getMethod('detectTypeFromModel');
+        $method->setAccessible(true);
+
+        // Test all the different model pattern detections
+        $this->assertSame(Type::AUTOMATIC_SPEECH_RECOGNITION, $method->invoke($inference, 'openai/whisper-base'));
+        $this->assertSame(Type::TEXT_TO_IMAGE, $method->invoke($inference, 'runwayml/stable-diffusion-v1-5'));
+        $this->assertSame(Type::TEXT_TO_IMAGE, $method->invoke($inference, 'black-forest-labs/flux-1-dev'));
+        $this->assertSame(Type::IMAGE_TO_TEXT, $method->invoke($inference, 'Salesforce/blip-image-captioning'));
+        $this->assertSame(Type::IMAGE_TO_TEXT, $method->invoke($inference, 'openai/clip-vit-base'));
+        $this->assertSame(Type::SENTENCE_SIMILARITY, $method->invoke($inference, 'sentence-transformers/all-MiniLM'));
+        $this->assertSame(Type::TRANSLATION, $method->invoke($inference, 'Helsinki-NLP/opus-mt-translation'));
+        $this->assertSame(Type::TRANSLATION, $method->invoke($inference, 't5-base'));
+        $this->assertSame(Type::TRANSLATION, $method->invoke($inference, 't5_large'));
+        $this->assertSame(Type::TEXT_GENERATION, $method->invoke($inference, 'gpt2')); // Default case
+        $this->assertSame(Type::TEXT_GENERATION, $method->invoke($inference, 'microsoft/DialoGPT-medium')); // Default case
+    }
 }

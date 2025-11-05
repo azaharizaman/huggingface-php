@@ -137,11 +137,14 @@ final class CreateStreamResponseDeltaTest extends TestCase
 
         $delta = CreateStreamResponseDelta::from($attributes);
 
-        $this->assertNull($delta['role']);
-        $this->assertNull($delta['content']);
-        // Note: isset() returns false for null values in ArrayAccessible trait
+        // When properties are null, they are not included in toArray()
+        // so accessing them via array access should use isset() first
         $this->assertFalse(isset($delta['role']));
         $this->assertFalse(isset($delta['content']));
+
+        // We can still access the properties directly
+        $this->assertNull($delta->role);
+        $this->assertNull($delta->content);
     }
 
     public function testProperties(): void
