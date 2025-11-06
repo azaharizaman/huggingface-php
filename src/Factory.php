@@ -129,7 +129,7 @@ final class Factory
         }
 
         // Default to inference API base URI for backward compatibility
-        $baseUri = BaseUri::from($this->baseUri ?: 'api-inference.huggingface.co');
+        $baseUri = BaseUri::from($this->baseUri ?: 'router.huggingface.co/hf-inference');
 
         $queryParams = QueryParams::create();
         foreach ($this->queryParams as $name => $value) {
