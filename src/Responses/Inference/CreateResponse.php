@@ -48,9 +48,15 @@ final class CreateResponse implements ResponseContract
                 $self->summarization = CreateResponseSummarization::from($attributes);
                 return $self;
             case Type::SENTIMENT_ANALYSIS->value:
-                $self->sentimentAnalysis = array_map(fn (array $result): CreateResponseSentimentAnalysis => CreateResponseSentimentAnalysis::from(
-                    $result
-                ), $attributes);
+                $results = $attributes;
+                if (count($results) === 1 && isset($results[0]) && is_array($results[0]) && array_is_list($results[0])) {
+                    $results = $results[0];
+                }
+
+                $self->sentimentAnalysis = array_map(
+                    fn (array $result): CreateResponseSentimentAnalysis => CreateResponseSentimentAnalysis::from($result),
+                    $results,
+                );
                 return $self;
             case Type::EMOTION_CLASSIFICATION->value:
                 $self->emotionClassification = array_map(fn (array $result): CreateResponseEmotionClassification => CreateResponseEmotionClassification::from(

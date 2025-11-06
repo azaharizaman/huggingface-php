@@ -7,6 +7,7 @@ namespace AzahariZaman\Huggingface\Resources;
 use AzahariZaman\Huggingface\Contracts\TransporterContract;
 use AzahariZaman\Huggingface\Enums\Type;
 use AzahariZaman\Huggingface\Enums\Provider;
+use AzahariZaman\Huggingface\Exceptions\ErrorException;
 use AzahariZaman\Huggingface\Responses\Inference\CreateResponse;
 use AzahariZaman\Huggingface\ValueObjects\Transporter\Payload;
 
@@ -41,6 +42,10 @@ final class Inference
         $payload = Payload::create('models/' . $parameters['model'], $parameters);
 
         $result = $this->transporter->requestObject($payload);
+
+        if (!is_array($result)) {
+            throw new ErrorException($result);
+        }
 
         return CreateResponse::from($result, $type);
     }

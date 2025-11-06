@@ -128,8 +128,8 @@ final class Factory
             $headers = $headers->withCustomHeader($name, $value);
         }
 
-        // Default to inference API base URI for backward compatibility
-        $baseUri = BaseUri::from($this->baseUri ?: 'router.huggingface.co/hf-inference');
+    // Default to inference API router for backward compatibility
+    $baseUri = BaseUri::from($this->baseUri ?: 'router.huggingface.co/hf-inference');
 
         $queryParams = QueryParams::create();
         foreach ($this->queryParams as $name => $value) {
