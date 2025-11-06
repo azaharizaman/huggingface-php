@@ -112,7 +112,7 @@ final class ClientTest extends TestCase
     public function testMultipleResourcesWorkIndependently(): void
     {
         $httpClient = $this->createMock(ClientInterface::class);
-    $baseUri = BaseUri::from('router.huggingface.co/hf-inference');
+        $baseUri = BaseUri::from('router.huggingface.co/hf-inference');
         $headers = Headers::withAuthorization(ApiKey::from('test-key'));
         $queryParams = QueryParams::create();
         $streamHandler = fn() => null;
