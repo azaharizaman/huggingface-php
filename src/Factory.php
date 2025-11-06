@@ -6,17 +6,17 @@ namespace AzahariZaman\Huggingface;
 
 use Closure;
 use Exception;
+use Psr\Http\Client\ClientInterface;
 use GuzzleHttp\Client as GuzzleClient;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Http\Discovery\Psr18ClientDiscovery;
-use AzahariZaman\Huggingface\Transporters\HttpTransporter;
+use Symfony\Component\HttpClient\Psr18Client;
 use AzahariZaman\Huggingface\ValueObjects\ApiKey;
+use AzahariZaman\Huggingface\Transporters\HttpTransporter;
 use AzahariZaman\Huggingface\ValueObjects\Transporter\BaseUri;
 use AzahariZaman\Huggingface\ValueObjects\Transporter\Headers;
 use AzahariZaman\Huggingface\ValueObjects\Transporter\QueryParams;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\HttpClient\Psr18Client;
 
 final class Factory
 {
