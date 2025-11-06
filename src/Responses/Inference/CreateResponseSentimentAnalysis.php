@@ -13,15 +13,24 @@ final class CreateResponseSentimentAnalysis implements ResponseContract
 
     public function __construct(
         private readonly string $label,
-        private readonly string $score
+        private readonly float $score
     ) {
         // ..
     }
 
-    public static function from(array $attributes)
+    public static function from(array $attributes): self
     {
-        // dd($attributes[0]['label']);
-        return new self($attributes[0]['label'], $attributes[0]['score']);
+        // Support both the legacy nested shape [[{label, score}, ...]] and the new flat shape [{label, score}, ...]
+        $entry = $attributes;
+
+        if (isset($attributes[0]) && is_array($attributes[0]) && array_key_exists('label', $attributes[0])) {
+            $entry = $attributes[0];
+        }
+
+        $label = (string) ($entry['label'] ?? '');
+        $score = isset($entry['score']) ? (float) $entry['score'] : 0.0;
+
+        return new self($label, $score);
     }
 
     public function toArray(): array

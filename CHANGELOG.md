@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-11-07
+
+### Fixed
+
+#### 🔧 API Endpoint Update
+- **FIXED**: Updated default inference API endpoint from deprecated `api-inference.huggingface.co` to new `router.huggingface.co/hf-inference`
+- **FIXED**: Resolved 404 errors when running inference text generation
+- **UPDATED**: Test cases to use the new router endpoint
+- **MAINTAINED**: Full backward compatibility - no breaking changes to user code
+
+### Technical Details
+
+#### 🐛 Issue Resolution
+- **PROBLEM**: Hugging Face deprecated the legacy inference API endpoint on November 1st, 2025
+- **SOLUTION**: Migrated to the new Hugging Face Router infrastructure for inference requests
+- **IMPACT**: Users experiencing "https://api-inference.huggingface.co is no longer supported" errors will now have working inference
+- **COMPATIBILITY**: Existing chat completions and hub API functionality unchanged
+
+---
+
 ## [Unreleased]
 
 ### Added
