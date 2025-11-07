@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AzahariZaman\Huggingface\Responses\Inference;
 
 use AzahariZaman\Huggingface\Contracts\ResponseContract;
+use AzahariZaman\Huggingface\Exceptions\InvalidArgumentException;
 use AzahariZaman\Huggingface\Responses\Concerns\ArrayAccessible;
 
 final class CreateResponseSentimentAnalysis implements ResponseContract
@@ -27,8 +28,16 @@ final class CreateResponseSentimentAnalysis implements ResponseContract
             $entry = $attributes[0];
         }
 
-        $label = (string) ($entry['label'] ?? '');
-        $score = isset($entry['score']) ? (float) $entry['score'] : 0.0;
+        if (!isset($entry['label'])) {
+            throw new InvalidArgumentException('Missing required field: label');
+        }
+
+        if (!isset($entry['score'])) {
+            throw new InvalidArgumentException('Missing required field: score');
+        }
+
+        $label = (string) $entry['label'];
+        $score = (float) $entry['score'];
 
         return new self($label, $score);
     }
