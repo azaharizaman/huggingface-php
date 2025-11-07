@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AzahariZaman\Huggingface\Tests\Responses\Inference;
 
+use AzahariZaman\Huggingface\Exceptions\InvalidArgumentException;
 use AzahariZaman\Huggingface\Responses\Inference\CreateResponseSentimentAnalysis;
 use PHPUnit\Framework\TestCase;
 
@@ -111,5 +112,41 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $this->assertArrayHasKey('label', $array);
         $this->assertArrayHasKey('score', $array);
         $this->assertCount(2, $array);
+    }
+
+    public function testFromThrowsExceptionWhenLabelIsMissing(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required field: label');
+
+        $attributes = [
+            ['score' => '0.95'],
+        ];
+
+        CreateResponseSentimentAnalysis::from($attributes);
+    }
+
+    public function testFromThrowsExceptionWhenScoreIsMissing(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required field: score');
+
+        $attributes = [
+            ['label' => 'POSITIVE'],
+        ];
+
+        CreateResponseSentimentAnalysis::from($attributes);
+    }
+
+    public function testFromThrowsExceptionWhenBothFieldsAreMissing(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing required field: label');
+
+        $attributes = [
+            [],
+        ];
+
+        CreateResponseSentimentAnalysis::from($attributes);
     }
 }
