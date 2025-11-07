@@ -28,11 +28,11 @@ final class CreateResponseSentimentAnalysis implements ResponseContract
             $entry = $attributes[0];
         }
 
-        if (!isset($entry['label'])) {
+        if (!array_key_exists('label', $entry)) {
             throw new InvalidArgumentException('Missing required field: label');
         }
 
-        if (!isset($entry['score'])) {
+        if (!array_key_exists('score', $entry)) {
             throw new InvalidArgumentException('Missing required field: score');
         }
 
