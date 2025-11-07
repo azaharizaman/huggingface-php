@@ -7,14 +7,14 @@ This is a community-maintained PHP API client for interacting with the Hugging F
 **Key Features:**
 - OpenAI-compatible Chat Completions API
 - Support for 17+ AI task types (text generation, sentiment analysis, summarization, image-to-text, etc.)
-- Multiple inference provider support (Sambanova, Together AI, HuggingFace, etc.)
+- Multiple inference provider support (Sambanova, Together AI, Hugging Face, etc.)
 - Streaming responses for real-time applications
 - Comprehensive type safety with PHP 8.2+ strict types
 - 100% test coverage
 
 ## Tech Stack
 
-- **PHP:** 8.2+ (strict types required)
+- **PHP:** 8.2+ required by composer.json (strict types required)
 - **HTTP Client:** PSR-18 compliant (Guzzle for dev/testing)
 - **Standards:** PSR-12 coding style
 - **Testing:** PHPUnit 11+
