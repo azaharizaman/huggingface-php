@@ -32,7 +32,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
 
         $this->assertSame([
             'label' => 'POSITIVE',
-            'score' => '0.95',
+            'score' => 0.95,
         ], $array);
     }
 
@@ -45,7 +45,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
 
         $this->assertTrue(isset($response['label']));
         $this->assertSame('NEGATIVE', $response['label']);
-        $this->assertSame('0.85', $response['score']);
+        $this->assertSame(0.85, $response['score']);
     }
 
     public function testFromWithNeutralSentiment(): void
@@ -58,7 +58,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $array = $response->toArray();
 
         $this->assertSame('NEUTRAL', $array['label']);
-        $this->assertSame('0.50', $array['score']);
+        $this->assertSame(0.50, $array['score']);
     }
 
     public function testFromWithHighConfidenceScore(): void
@@ -71,7 +71,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $array = $response->toArray();
 
         $this->assertSame('POSITIVE', $array['label']);
-        $this->assertSame('0.9999', $array['score']);
+        $this->assertSame(0.9999, $array['score']);
     }
 
     public function testFromWithLowConfidenceScore(): void
@@ -84,7 +84,7 @@ final class CreateResponseSentimentAnalysisTest extends TestCase
         $array = $response->toArray();
 
         $this->assertSame('NEGATIVE', $array['label']);
-        $this->assertSame('0.0001', $array['score']);
+        $this->assertSame(0.0001, $array['score']);
     }
 
     public function testArrayOffsetExists(): void
